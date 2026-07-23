@@ -1,0 +1,2 @@
+# RaidCounter
+ZamexGO Raid Counter
