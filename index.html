@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Actuele Pokémon GO Raid Bosses, counters, CP, weerboost en shiny-informatie.">
+  <title>ZamexGO Raid Counter</title>
+  <style>
+    :root{--navy:#071d38;--blue:#0876df;--green:#13bf75;--ink:#14283f;--muted:#667d94;--line:#dbe7f1;--soft:#f2f8fc;--white:#fff}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);font-family:Arial,Helvetica,sans-serif;background:#fff}
+    button,input{font:inherit}button{cursor:pointer}.wrap{width:min(1180px,92%);margin:auto}
+    header{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;background:#fff}.head{display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:10px}.ball{width:40px;height:40px;border:3px solid var(--navy);border-radius:50%;display:grid;place-items:center;color:#fff;font-size:20px;font-weight:900;background:linear-gradient(145deg,var(--green) 0 46%,#fff 47% 55%,var(--blue) 56%)}.brand b{font-size:25px;color:var(--navy);letter-spacing:-1px}.brand b span{color:var(--green)}.brand small{display:block;color:#71849a;font-size:9px;font-weight:800;letter-spacing:2px}
+    .status{font-size:12px;font-weight:800;color:#4f687e}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px #dff8ed;margin-right:8px}.loading .dot{background:#e8a20a;box-shadow:0 0 0 5px #fff2cb;animation:pulse 1s infinite}.error .dot{background:#ef7d32;box-shadow:0 0 0 5px #ffeadb}@keyframes pulse{50%{opacity:.3}}
+    .hero{padding:65px 0;background:radial-gradient(circle at 85% 35%,#d9f7ec 0 8%,transparent 28%),linear-gradient(120deg,#f8fcff,#eaf5fb)}.heroGrid{display:grid;grid-template-columns:1.25fr .75fr;align-items:center;gap:50px}.eyebrow{color:var(--blue);font-size:11px;letter-spacing:2.2px;font-weight:900;margin:0 0 14px}.hero h1{margin:0;color:var(--navy);font-size:clamp(43px,5.6vw,72px);line-height:1.02;letter-spacing:-3.5px}.hero h1 em{font-style:normal;color:var(--green)}.intro{color:#587188;font-size:17px;line-height:1.7;max-width:660px}.search{max-width:650px;display:flex;gap:8px;padding:7px;margin-top:25px;background:#fff;border:2px solid #d7e6f0;border-radius:14px;box-shadow:0 13px 35px #2961901c}.search input{flex:1;min-width:0;border:0;outline:0;padding:13px 15px}.search button{border:0;border-radius:9px;padding:13px 24px;color:#fff;background:linear-gradient(135deg,var(--blue),#075cb7);font-weight:800}.updated{display:block;margin-top:14px;color:#70859a;font-size:11px}
+    .orb{width:min(330px,30vw);aspect-ratio:1;margin:auto;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,var(--blue),var(--green));box-shadow:0 25px 65px #0876df3a}.orb img{width:88%;height:88%;object-fit:contain;filter:drop-shadow(0 22px 16px #00284454)}
+    main section.list{padding:65px 0}.titleRow{display:flex;justify-content:space-between;align-items:end}.titleRow h2,.detail h2{margin:0;color:var(--navy);font-size:38px;letter-spacing:-1.5px}.count{background:#e8f5ff;color:var(--blue);padding:7px 12px;border-radius:99px;font-size:11px;font-weight:900}
+    .filters{display:flex;flex-wrap:wrap;gap:8px;margin:25px 0}.filters button{border:1px solid var(--line);border-radius:9px;background:#fff;padding:10px 15px;color:#50687f;font-weight:800}.filters button.active,.filters button:hover{background:var(--navy);border-color:var(--navy);color:#fff}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:14px}.card{position:relative;min-height:235px;border:1px solid var(--line);border-radius:17px;background:#fff;padding:15px 10px;text-align:center;box-shadow:0 4px 12px #193d5e09;transition:.2s}.card:hover,.card.selected{border-color:var(--green);transform:translateY(-3px);box-shadow:0 13px 30px #0ca66a1e}.card img{width:120px;height:120px;object-fit:contain;display:block;margin:8px auto}.card strong{display:block;color:var(--navy)}.card small{display:block;margin-top:5px;color:var(--muted)}.shiny{display:inline-block;margin-top:9px;border-radius:99px;background:#fff5d5;color:#966800;padding:5px 8px;font-size:9px;font-weight:900}.tier{position:absolute;top:10px;left:10px;border-radius:6px;background:#e8a20a;color:#fff;padding:5px 7px;font-size:9px;font-weight:900}.tier.mega{background:#7c3aed}.tier.shadow{background:#25213c}.tier.five{background:#d63d55}.tier.three{background:#ee7c16}
+    .message{padding:40px;border:1px dashed #bdd2e2;border-radius:16px;background:var(--soft);text-align:center;color:var(--muted)}.message b{display:block;color:var(--navy);font-size:19px;margin-bottom:7px}
+    .detail{padding:10px 0 65px}.detailHead{display:grid;grid-template-columns:340px 1fr;align-items:center;min-height:330px;overflow:hidden;border-radius:24px;color:#fff;background:linear-gradient(120deg,#071d38,#0a345a)}.detailImage{height:100%;display:grid;place-items:center;position:relative;background:radial-gradient(circle,#1e9cd8 0,transparent 62%)}.detailImage img{width:270px;height:270px;object-fit:contain;filter:drop-shadow(0 20px 18px #0006)}.detailInfo{padding:40px}.detailInfo h2{font-size:48px;color:#fff}.types{display:flex;gap:7px;margin:12px 0}.types span{padding:6px 10px;border:1px solid #ffffff33;border-radius:99px;background:#ffffff14;font-size:11px;font-weight:800}.detailInfo p{color:#bfd2e2}.quick{display:flex;gap:32px;margin-top:27px}.quick small{display:block;color:#8da7bd;font-size:9px;letter-spacing:1px;margin-bottom:5px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:14px 0}.stat{display:flex;flex-direction:column;padding:19px;border:1px solid var(--line);border-radius:14px}.stat small,.weak small{font-size:9px;letter-spacing:1.1px;color:#778ca1;font-weight:900}.stat b{font-size:24px;color:var(--navy);margin:7px 0}.stat span{font-size:10px;color:#778ca1}.stat.gold{background:#fffaf0;border-color:#efd88d}.stat.gold b{color:#ad7700}
+    .weak{display:flex;justify-content:space-between;gap:20px;padding:19px 22px;border-radius:14px;background:var(--soft)}.weak b{display:block;color:var(--navy);margin-top:5px}.counterTitle{margin:27px 0 11px;color:var(--navy);font-size:19px;font-weight:900}.counterGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.counter{display:flex;align-items:center;gap:8px;padding:10px;border:1px solid var(--line);border-radius:13px}.counter img{width:58px;height:58px;object-fit:contain;border-radius:9px;background:var(--soft)}.counter strong{display:block;color:var(--navy);font-size:12px}.counter small{display:block;color:#71869a;font-size:9px;line-height:1.4;margin-top:3px}
+    footer{padding:30px 0;background:var(--navy);color:#afc5d6;font-size:11px}.foot{display:flex;justify-content:space-between;align-items:center;gap:25px}.credit a{color:#72d7ae}
+    @media(max-width:850px){.heroGrid{grid-template-columns:1fr}.orb{display:none}.detailHead{grid-template-columns:1fr}.detailImage{height:260px}.stats{grid-template-columns:1fr 1fr}.counterGrid{grid-template-columns:1fr 1fr}.foot{align-items:flex-start;flex-direction:column}}
+    @media(max-width:550px){.wrap{width:94%}.status{font-size:0}.hero{padding:45px 0}.hero h1{font-size:43px}.intro{font-size:15px}.filters{overflow:auto;flex-wrap:nowrap;padding-bottom:5px}.filters button{white-space:nowrap}.grid{grid-template-columns:1fr 1fr}.card{min-height:215px}.card img{width:100px;height:100px}.titleRow h2,.detail h2{font-size:30px}.count{display:none}.detailInfo{padding:27px}.detailInfo h2{font-size:37px}.quick{display:grid;grid-template-columns:1fr 1fr;gap:18px}.weak{flex-direction:column}.counterGrid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap head"><div class="brand"><span class="ball">Z</span><div><b>Zamex<span>GO</span></b><small>RAID COUNTER</small></div></div><div class="status loading" id="status"><i class="dot"></i><span>Raidlijst bijwerken…</span></div></div></header>
+  <section class="hero"><div class="wrap heroGrid"><div><p class="eyebrow">SLIMMER RAIDEN · SNELLER WINNEN</p><h1>Kies je Raid Boss.<br><em>Vind je beste team.</em></h1><p class="intro">Bekijk de recente Raid Bosses, sterkste counters, perfecte IV CP, weerboost en hoeveel spelers je nodig hebt.</p><div class="search"><input id="search" type="search" placeholder="Zoek een Raid Boss…" aria-label="Zoek een Raid Boss"><button id="searchButton">Zoeken</button></div><small class="updated" id="updated">De nieuwste raidrotatie wordt opgehaald…</small></div><div class="orb"><img id="heroImage" alt="Actuele Raid Boss"></div></div></section>
+  <main>
+    <section class="list"><div class="wrap"><div class="titleRow"><div><p class="eyebrow">ACTIEVE RAID BOSSES</p><h2>Welke raid ga je doen?</h2></div><b class="count" id="count">0 gevonden</b></div><div class="filters" id="filters"></div><div class="grid" id="grid"><div class="message"><b>Actuele raids laden…</b>Een ogenblik geduld.</div></div></div></section>
+    <section class="detail wrap" id="detail" hidden></section>
+  </main>
+  <footer><div class="wrap foot"><div class="brand"><span class="ball">Z</span><b style="color:#fff">Zamex<span>GO</span></b></div><div>De raidlijst wordt bij ieder bezoek automatisch gecontroleerd.</div><div class="credit">Raiddata via <a href="https://pokemon-go-api.github.io/pokemon-go-api/" target="_blank" rel="noopener">Pokémon GO API</a></div></div></footer>
+  <script>
+  (() => {
+    "use strict";
+    const API="https://pokemon-go-api.github.io/pokemon-go-api/api/raidboss.json";
+    const art=id=>`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+    const filters=[["all","Alle raids"],["1","1 ster"],["2","2 sterren"],["3","3 sterren"],["4","4 sterren"],["5","5 sterren"],["6","6 sterren"],["mega","Mega"],["shadow","Shadow"]];
+    const weather={rain:"Regen",rainy:"Regen",windy:"Winderig",snow:"Sneeuw",sunny:"Zonnig",clear:"Zonnig",cloudy:"Bewolkt",overcast:"Bewolkt",fog:"Mist",partlycloudy_day:"Halfbewolkt",partlycloudy_night:"Halfbewolkt"};
+    const teams={
+      Dark:[["Hydreigon","Bite · Brutal Swing",635],["Tyranitar","Bite · Brutal Swing",248],["Mega Tyranitar","Bite · Brutal Swing",248],["Shadow Tyranitar","Bite · Brutal Swing",248]],
+      Dragon:[["Origin Dialga","Dragon Breath · Roar of Time",483],["Rayquaza","Dragon Tail · Breaking Swipe",384],["Mega Rayquaza","Dragon Tail · Breaking Swipe",384],["Shadow Salamence","Dragon Tail · Outrage",373]],
+      Electric:[["Zekrom","Charge Beam · Fusion Bolt",644],["Xurkitree","Thunder Shock · Discharge",796],["Mega Manectric","Thunder Fang · Wild Charge",310],["Shadow Raikou","Thunder Shock · Wild Charge",243]],
+      Fairy:[["Enamorus","Fairy Wind · Dazzling Gleam",905],["Togekiss","Charm · Dazzling Gleam",468],["Mega Gardevoir","Charm · Dazzling Gleam",282],["Shadow Gardevoir","Charm · Dazzling Gleam",282]],
+      Fighting:[["Terrakion","Double Kick · Sacred Sword",639],["Lucario","Force Palm · Aura Sphere",448],["Mega Lucario","Force Palm · Aura Sphere",448],["Shadow Machamp","Counter · Dynamic Punch",68]],
+      Fire:[["Reshiram","Fire Fang · Fusion Flare",643],["Blacephalon","Incinerate · Mystical Fire",806],["Mega Blaziken","Fire Spin · Blast Burn",257],["Shadow Chandelure","Fire Spin · Overheat",609]],
+      Flying:[["Rayquaza","Air Slash · Dragon Ascent",384],["Yveltal","Gust · Oblivion Wing",717],["Mega Rayquaza","Air Slash · Dragon Ascent",384],["Shadow Moltres","Wing Attack · Sky Attack",146]],
+      Ghost:[["Dawn Wings Necrozma","Shadow Claw · Moongeist Beam",800],["Chandelure","Hex · Shadow Ball",609],["Mega Gengar","Lick · Shadow Ball",94],["Shadow Chandelure","Hex · Shadow Ball",609]],
+      Grass:[["Kartana","Razor Leaf · Leaf Blade",798],["Rillaboom","Razor Leaf · Grass Knot",812],["Mega Sceptile","Fury Cutter · Frenzy Plant",254],["Shadow Sceptile","Fury Cutter · Frenzy Plant",254]],
+      Ground:[["Groudon","Mud Shot · Precipice Blades",383],["Garchomp","Mud Shot · Earth Power",445],["Primal Groudon","Mud Shot · Precipice Blades",383],["Shadow Groudon","Mud Shot · Precipice Blades",383]],
+      Ice:[["Baxcalibur","Ice Fang · Avalanche",998],["Mamoswine","Powder Snow · Avalanche",473],["Mega Glalie","Frost Breath · Avalanche",362],["Shadow Mamoswine","Powder Snow · Avalanche",473]],
+      Poison:[["Nihilego","Poison Jab · Sludge Bomb",793],["Roserade","Poison Jab · Sludge Bomb",407],["Mega Gengar","Lick · Sludge Bomb",94],["Shadow Gengar","Lick · Sludge Bomb",94]],
+      Psychic:[["Mewtwo","Psycho Cut · Psystrike",150],["Lunala","Confusion · Psychic",792],["Mega Alakazam","Confusion · Psychic",65],["Shadow Mewtwo","Psycho Cut · Psystrike",150]],
+      Rock:[["Rhyperior","Smack Down · Rock Wrecker",464],["Rampardos","Smack Down · Rock Slide",409],["Mega Diancie","Rock Throw · Rock Slide",719],["Shadow Rhyperior","Smack Down · Rock Wrecker",464]],
+      Steel:[["Dusk Mane Necrozma","Metal Claw · Sunsteel Strike",800],["Metagross","Bullet Punch · Meteor Mash",376],["Mega Scizor","Bullet Punch · Iron Head",212],["Shadow Metagross","Bullet Punch · Meteor Mash",376]],
+      Water:[["Kyogre","Waterfall · Origin Pulse",382],["Greninja","Water Shuriken · Hydro Cannon",658],["Primal Kyogre","Waterfall · Origin Pulse",382],["Shadow Kyogre","Waterfall · Origin Pulse",382]],
+      Bug:[["Volcarona","Bug Bite · Bug Buzz",637],["Genesect","Fury Cutter · X-Scissor",649],["Mega Heracross","Struggle Bug · Megahorn",214],["Shadow Scizor","Fury Cutter · X-Scissor",212]]
+    };
+    let raids=[],filter="all",selected=null;
+    const $=id=>document.getElementById(id);
+    function level(key){
+      const shadow=key.startsWith("shadow_"),stars=(key.match(/\d+/)||[""])[0];
+      if(key==="mega")return{tier:"mega",badge:"MEGA",note:"Actief in Mega Raids"};
+      if(shadow)return{tier:"shadow",badge:`SHADOW ${stars}★`,note:`${stars}-sterren Shadow Raid · Purified Gems aanbevolen`};
+      return{tier:stars,badge:"★".repeat(+stars),note:`Actief in ${stars}-sterrenraids`};
+    }
+    function convert(b,key){
+      const info=level(key),weak=Object.entries(b.counter||{}).sort((a,c)=>c[1]-a[1]),dex=+(b.assets.image.match(/pm(\d+)/)||[0,0])[1];
+      let name=b.names.English;if(b.form==="PIKACHU_ANNIVERSARY_2026")name="Professor Willow Pikachu";else if(b.costume)name=`Party Hat ${name}`;if(key.startsWith("shadow_"))name=`Shadow ${name}`;
+      const all=weak.flatMap(([t])=>teams[t]||[]),normal=all.filter(x=>!x[0].startsWith("Mega ")&&!x[0].startsWith("Primal ")&&!x[0].startsWith("Shadow ")).slice(0,5),mega=all.filter(x=>x[0].startsWith("Mega ")||x[0].startsWith("Primal ")).slice(0,3),shadow=all.filter(x=>x[0].startsWith("Shadow ")).slice(0,3);
+      const one=key.includes("lvl1"),three=key.includes("lvl3"),sh=key.startsWith("shadow_"),est=Math.max(2,Math.ceil(b.battleResult?.normal?.totalEstimator||3));
+      return{name,id:dex,image:b.assets.image,tier:info.tier,badge:info.badge,types:b.types,shiny:b.shiny,cp:`${b.cpRange[0]}–${b.cpRange[1]}`,boosted:`${b.cpRangeBoost[0]}–${b.cpRangeBoost[1]}`,perfect:b.cpRange[1],perfectBoosted:b.cpRangeBoost[1],weather:b.weather.map(x=>weather[x]||x).join(" · "),difficulty:one?"Zeer makkelijk":three?(sh?"Gemiddeld":"Makkelijk"):(sh?"Zeer zwaar":"Zwaar"),players:one?"1 speler":three?(sh?"2–3 spelers":"1–2 spelers"):`${est}–${est+2} spelers`,weaknesses:weak.map(([t,m])=>m>2?`${t} (×2)`:t),note:info.note,normal,mega,shadow};
+    }
+    function renderFilters(){
+      $("filters").innerHTML=filters.map(([v,l])=>`<button data-filter="${v}" class="${filter===v?"active":""}">${l}</button>`).join("");
+      $("filters").querySelectorAll("button").forEach(b=>b.onclick=()=>{filter=b.dataset.filter;renderFilters();renderCards()});
+    }
+    function visible(){const q=$("search").value.trim().toLowerCase();return raids.filter(r=>(filter==="all"||r.tier===filter)&&r.name.toLowerCase().includes(q))}
+    function tierClass(r){return r.tier==="mega"?"mega":r.tier==="shadow"?"shadow":r.tier==="5"?"five":r.tier==="3"?"three":""}
+    function renderCards(){
+      const list=visible();$("count").textContent=`${list.length} gevonden`;
+      $("grid").innerHTML=list.length?list.map((r,i)=>`<button class="card ${selected===r?"selected":""}" data-index="${raids.indexOf(r)}"><span class="tier ${tierClass(r)}">${r.badge}</span><img src="${r.image}" alt="${r.name}" loading="lazy"><strong>${r.name}</strong><small>${r.types.join(" · ")}</small><span class="shiny">${r.shiny?"✦ Shiny mogelijk":"Geen shiny"}</span></button>`).join(""):`<div class="message"><b>Geen actieve raids gevonden</b>Kies een ander raidniveau of wis de zoekopdracht.</div>`;
+      $("grid").querySelectorAll(".card").forEach(c=>c.onclick=()=>{selected=raids[+c.dataset.index];renderCards();renderDetail();$("detail").scrollIntoView({behavior:"smooth"})});
+    }
+    function counterSection(title,items){if(!items.length)return"";return`<div class="counterTitle">${title}</div><div class="counterGrid">${items.map(x=>`<article class="counter"><img src="${art(x[2])}" alt="${x[0]}" loading="lazy"><div><strong>${x[0]}</strong><small>${x[1]}</small></div></article>`).join("")}</div>`}
+    function renderDetail(){
+      const r=selected;if(!r)return;$("detail").hidden=false;
+      $("detail").innerHTML=`<div class="detailHead"><div class="detailImage"><span class="tier ${tierClass(r)}">${r.badge}</span><img src="${r.image}" alt="${r.name}"></div><div class="detailInfo"><p class="eyebrow">RAID GUIDE</p><h2>${r.name}</h2><div class="types">${r.types.map(t=>`<span>${t}</span>`).join("")}</div><p>${r.note}</p><div class="quick"><div><small>MOEILIJKHEID</small><b>${r.difficulty}</b></div><div><small>AANBEVOLEN</small><b>👥 ${r.players}</b></div><div><small>SHINY?</small><b>${r.shiny?"✦ Ja":"Nee"}</b></div></div></div></div><div class="stats"><article class="stat"><small>VANG-CP</small><b>${r.cp}</b><span>Zonder weerboost</span></article><article class="stat"><small>100% IV CP</small><b>${r.perfect}</b><span>Level 20</span></article><article class="stat"><small>WEERBOOST CP</small><b>${r.boosted}</b><span>${r.weather}</span></article><article class="stat gold"><small>100% IV + BOOST</small><b>${r.perfectBoosted}</b><span>Level 25</span></article></div><div class="weak"><div><small>TYPE ZWAKTES</small><b>${r.weaknesses.join(" · ")}</b></div><div><small>WEERBOOST</small><b>${r.weather}</b></div></div>${counterSection("Beste counters",r.normal)}${counterSection("Beste Mega Pokémon",r.mega)}${counterSection("Beste Shadow Pokémon",r.shadow)}`;
+    }
+    async function load(){
+      try{
+        const response=await fetch(API,{cache:"no-store"});if(!response.ok)throw new Error();
+        const data=await response.json();raids=Object.entries(data.currentList).flatMap(([k,list])=>list.map(b=>convert(b,k)));
+        selected=raids[0]||null;$("status").className="status";$("status").querySelector("span").textContent="Raidlijst automatisch bijgewerkt";
+        $("updated").textContent=`Automatisch bijgewerkt: ${new Intl.DateTimeFormat("nl-NL",{dateStyle:"long",timeStyle:"short"}).format(new Date())}`;
+        if(selected)$("heroImage").src=selected.image;renderCards();renderDetail();
+      }catch(e){$("status").className="status error";$("status").querySelector("span").textContent="Update tijdelijk niet beschikbaar";$("updated").textContent="De externe raiddatabron is tijdelijk niet bereikbaar.";$("grid").innerHTML=`<div class="message"><b>Raidlijst tijdelijk niet bereikbaar</b>Vernieuw de pagina over enkele minuten.</div>`}
+    }
+    $("search").addEventListener("input",renderCards);$("searchButton").onclick=()=>{$("grid").scrollIntoView({behavior:"smooth"});renderCards()};renderFilters();load();
+  })();
+  </script>
+</body>
+</html>
