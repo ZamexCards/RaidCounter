@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Pokémon GO level 70 tot en met 80: bekijk alle level-upopdrachten, benodigde XP en Stardust.">
+  <title>Pokémon GO Levelgids | ZamexCards</title>
+  <style>
+    :root{--ink:#12324a;--navy:#087fb8;--blue:#159bd7;--green:#22c98b;--pale:#f3fbff;--line:#d8ebf3}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:linear-gradient(180deg,#effaff 0,#fff 38%);font-family:Arial,Helvetica,sans-serif}button,input{font:inherit}a{color:inherit;text-decoration:none}
+    .top{min-height:520px;padding:55px max(7vw,22px);color:#fff;background:linear-gradient(125deg,#087fb8 0%,#159bd7 48%,#22c98b 100%);position:relative;overflow:hidden}
+    .top:before{content:"";position:absolute;width:500px;height:500px;border-radius:50%;right:-80px;top:25px;background:radial-gradient(circle,rgba(255,255,255,.18),rgba(255,255,255,.05) 55%,transparent 70%);border:1px solid rgba(255,255,255,.12)}
+    .top:after{content:"";position:absolute;height:6px;bottom:0;left:0;right:0;background:linear-gradient(90deg,#0879b4,#22c98b)}
+    .brand{font-size:22px;font-weight:900;letter-spacing:-1px;text-shadow:0 2px 10px rgba(0,75,110,.18)}.brand span{color:#ddfff3}
+    .hero{max-width:1160px;margin:70px auto 0;display:flex;align-items:center;justify-content:space-between;gap:50px}
+    .copy{max-width:670px}.eyebrow,.kicker{color:#0ca56f;font-size:12px;font-weight:900;letter-spacing:2px}.top .eyebrow{color:#e0fff5}.eyebrow:before{content:"✦";color:#fff;margin-right:8px}
+    h1{font-size:clamp(48px,7vw,82px);line-height:.98;letter-spacing:-4px;margin:18px 0 24px}h1 span{color:#e0fff5}.copy p{color:#f2fcff;font-size:18px;line-height:1.7}
+    .heroBtn{display:inline-block;margin-top:12px;background:#fff;color:#0879b4;padding:16px 22px;border-radius:12px;font-weight:900;box-shadow:0 10px 26px rgba(0,92,130,.18)}
+    .orb{flex:0 0 300px;height:300px;border-radius:50%;border:2px solid rgba(255,255,255,.42);background:linear-gradient(145deg,rgba(4,111,165,.48),rgba(12,164,113,.52));display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 70px rgba(255,255,255,.16),inset 0 0 50px rgba(255,255,255,.08)}
+    .orb small{color:#e0fff5;font-weight:900;letter-spacing:3px}.orb strong{font-size:110px;line-height:.9}.orb span{color:#edfffa;font-size:13px;margin-top:12px}
+    .facts{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);border:1px solid var(--line);border-top:0;border-radius:0 0 15px 15px;box-shadow:0 15px 35px rgba(19,62,85,.07)}
+    .fact{padding:24px 28px;border-right:1px solid var(--line);background:#fff}.fact:last-child{border:0}.fact small{display:block;color:#688298;font-size:10px;font-weight:900;letter-spacing:1px;margin-bottom:6px}.fact b{font-size:16px}
+    .wrap{max-width:1160px;margin:80px auto;padding:0 20px}.heading{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:28px}.heading h2{font-size:34px;letter-spacing:-1px;margin:8px 0 0}
+    .search{width:290px;border:1px solid var(--line);border-radius:10px;padding:13px 15px;outline:0}.levels{display:grid;grid-template-columns:repeat(11,1fr);gap:8px;margin-bottom:18px}
+    .levels button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 4px;cursor:pointer;font-size:19px;font-weight:900;color:#28708f;box-shadow:0 4px 12px rgba(12,124,167,.06)}.levels button small{display:block;color:#79a6b8;font-size:8px;letter-spacing:1px}.levels button:hover{border-color:var(--blue);transform:translateY(-1px)}.levels button.active{background:linear-gradient(135deg,var(--blue),var(--green));color:#fff;border-color:transparent;box-shadow:0 8px 20px rgba(20,157,181,.25)}.levels button.active small{color:#e9fff8}
+    .card{border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 18px 50px rgba(20,64,88,.08)}.cardHead{background:linear-gradient(105deg,#f1f8fb,#fbfdfe);display:grid;grid-template-columns:120px 1fr 245px;gap:25px;align-items:center;padding:28px;border-bottom:1px solid var(--line)}
+    .badge{width:105px;height:105px;border-radius:50%;background:linear-gradient(145deg,var(--blue),var(--green));color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(20,157,181,.22)}.badge small{color:#e3fff6;font-size:9px;font-weight:900;letter-spacing:1.5px}.badge strong{font-size:47px;line-height:1}
+    .intro label{color:#159c70;background:#e5f9f1;padding:5px 8px;border-radius:5px;font-size:9px;font-weight:900}.intro h3{font-size:24px;margin:12px 0 6px}.intro p{margin:0;color:#6d8290;font-size:13px;line-height:1.6}
+    .xp{border-left:1px solid var(--line);padding-left:28px}.xp small{color:#7a909e;font-size:9px;font-weight:900;letter-spacing:1px}.xp strong{display:block;color:var(--blue);font-size:27px;margin:6px 0}.xp span{font-size:11px;color:#748a98}
+    .tasks{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}.task{min-height:88px;border:0;background:#fff;text-align:left;padding:22px 26px;display:flex;align-items:center;gap:15px;cursor:pointer;color:var(--ink)}.task:hover{background:#f8fcfd}.check{width:25px;height:25px;flex:0 0 25px;border:2px solid #b8cad4;border-radius:6px;display:grid;place-items:center;color:#fff;font-weight:900}.task small{display:block;color:#8ca0ac;font-size:8px;font-weight:900;letter-spacing:1px;margin-bottom:5px}.task b{font-size:14px}.task.done{background:#effaf5}.task.done .check{background:var(--green);border-color:var(--green)}.task.done b{text-decoration:line-through;color:#789087}
+    .dust{display:flex;align-items:center;gap:15px;padding:20px 28px;background:#fafbfd;border-top:1px solid var(--line)}.dustIcon{width:38px;height:38px;border-radius:9px;background:#f0edff;color:#7661ca;display:grid;place-items:center}.dust div b{font-size:13px}.dust div p{font-size:11px;color:#7b909e;margin:4px 0 0}.dust>strong{margin-left:auto;color:#7560c8;font-size:20px}
+    .info{background:linear-gradient(125deg,#087fb8,#159bd7 52%,#18b980);color:#fff;padding:70px max(7vw,22px)}.infoInner{max-width:1160px;margin:auto}.info .kicker{color:#e1fff5}.info h2{font-size:34px;margin:8px 0}.info>div>p{color:#eefcff;line-height:1.7;max-width:730px}.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}.cols article{border:1px solid rgba(255,255,255,.3);border-radius:14px;padding:25px;background:rgba(255,255,255,.12)}.cols span{color:#e0fff4;font-size:10px;font-weight:900}.cols h3{font-size:18px}.cols p{color:#efffff;font-size:13px;line-height:1.7}.update{font-size:11px;color:#e4faf4;margin-top:25px}
+    footer{padding:25px;background:#0879b4;color:#e8f9ff;text-align:center;font-size:11px;border-top:5px solid var(--green)}
+    @media(max-width:900px){.orb{display:none}.facts{margin:0 18px;grid-template-columns:1fr}.fact{border-right:0;border-bottom:1px solid var(--line)}.levels{grid-template-columns:repeat(6,1fr)}.cardHead{grid-template-columns:95px 1fr}.xp{grid-column:1/-1;border-left:0;border-top:1px solid var(--line);padding:18px 0 0}.tasks,.cols{grid-template-columns:1fr}}
+    @media(max-width:560px){.top{padding-top:35px}.hero{margin-top:55px}.facts{margin:0}.heading{align-items:stretch;flex-direction:column}.search{width:100%}.levels{grid-template-columns:repeat(4,1fr)}.cardHead{padding:20px 17px;grid-template-columns:72px 1fr;gap:15px}.badge{width:70px;height:70px}.badge strong{font-size:31px}.intro h3{font-size:19px}.task{padding:19px 17px}.dust{padding:18px}}
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="brand">ZAMEX<span>GO</span></div>
+    <div class="hero">
+      <div class="copy">
+        <div class="eyebrow">LEVEL 70 T/M LEVEL 80</div>
+        <h1>Jouw route naar<br><span>level 80</span></h1>
+        <p>Bekijk per level hoeveel XP je nodig hebt en welke opdrachten je moet voltooien. Vink taken af en bewaar je voortgang.</p>
+        <a class="heroBtn" href="#levelgids">Kies jouw level →</a>
+      </div>
+      <div class="orb"><small>MAX LEVEL</small><strong>80</strong><span>203.353.000 XP</span></div>
+    </div>
+  </header>
+  <section class="facts">
+    <div class="fact"><small>OPDRACHTEN VANAF</small><b>Level 70 → 71</b></div>
+    <div class="fact"><small>TOTALE XP VOOR LEVEL 80</small><b>203.353.000 XP</b></div>
+  </section>
+  <main class="wrap" id="levelgids">
+    <div class="heading">
+      <div><div class="kicker">LEVEL-UP RESEARCH</div><h2>Kies het level dat je wilt bereiken</h2></div>
+      <input class="search" id="search" aria-label="Zoeken" placeholder="Zoek level of opdracht…">
+    </div>
+    <div class="levels" id="levelButtons"></div>
+    <article class="card" id="card"></article>
+  </main>
+  <section class="info">
+    <div class="infoInner">
+      <div class="kicker">GOED OM TE WETEN</div><h2>XP en opdrachten tellen allebei</h2>
+      <p>Vanaf level 70 moet je voor ieder volgend level de benodigde totale XP behalen én alle vier Level-Up Research-opdrachten afronden.</p>
+      <div class="cols">
+        <article><span>01</span><h3>XP verzamelen</h3><p>Je eerder verdiende XP telt mee. Heb je al voldoende XP, dan blijven alleen de opdrachten over.</p></article>
+        <article><span>02</span><h3>Opdrachten starten</h3><p>De voortgang telt pas nadat je het voorgaande level hebt bereikt en de opdracht in Pokémon GO zichtbaar is.</p></article>
+        <article><span>03</span><h3>Stardust is geen betaling</h3><p>Voor level 72 moet je 1.000.000 Stardust verdienen. Het bedrag wordt niet van je voorraad afgeschreven.</p></article>
+      </div>
+      <p class="update">Gegevens gecontroleerd op 28 juli 2026. De pagina gebruikt altijd de ingebouwde, gecontroleerde gegevens en blijft daardoor ook werken als een externe bron tijdelijk niet bereikbaar is.</p>
+    </div>
+  </section>
+  <footer>Onafhankelijke Pokémon GO-gids van ZamexCards. Niet verbonden aan Niantic, Nintendo of The Pokémon Company.</footer>
+  <script>
+  const levels=[
+    {level:70,total:85853000,step:7250000,dust:0,tasks:[],note:"Voor level 70 zijn alleen de benodigde XP van toepassing. De opdrachten starten voor level 71."},
+    {level:71,total:93853000,step:8000000,dust:0,tasks:["Verdien 15 platina medailles","Power-up Legendary of Mythical Pokémon 20 keer","Maak 999 Nice Throws","Vang 100 Pokémon op één dag"]},
+    {level:72,total:102603000,step:8750000,dust:1000000,tasks:["Verdien 20 platina medailles","Volg 7 dagen achter elkaar een Route","Gebruik 200 supereffectieve Charged Attacks","Verdien 1.000.000 Stardust"]},
+    {level:73,total:112103000,step:9500000,dust:0,tasks:["Verdien 25 platina medailles","Zuiver 100 Shadow Pokémon","Breng 3 Pokémon naar hun maximale CP","Win 30 raids"]},
+    {level:74,total:122353000,step:10250000,dust:0,tasks:["Verdien 30 platina medailles","Verbeter een Max Move 20 keer","Verken 200 km","Voltooi 250 Field Research-opdrachten"]},
+    {level:75,total:133353000,step:11000000,dust:0,tasks:["Verdien 34 platina medailles","Broed 75 eieren uit","Maak 999 Great Throws","Stuur 500 cadeaus naar vrienden"]},
+    {level:76,total:145353000,step:12000000,dust:0,tasks:["Verdien 38 platina medailles","Versla 100 Team GO Rocket Grunts","Verken 300 km","Vang 200 Pokémon op één dag"]},
+    {level:77,total:158353000,step:13000000,dust:0,tasks:["Behaal 41 platina medailles","Breng 7 Pokémon naar hun maximale CP","Win 100 Max Battles","Ruil 10 Pokémon die minstens 300 km uit elkaar zijn gevangen"]},
+    {level:78,total:172353000,step:14000000,dust:0,tasks:["Behaal 44 platina medailles","Verdien 400 hartjes met je buddy","Verken 400 km","Voltooi 500 Field Research-opdrachten"]},
+    {level:79,total:187353000,step:15000000,dust:0,tasks:["Behaal 47 platina medailles","Versla 30 keer een Team GO Rocket Leader","Broed 100 eieren uit","Ontvang 50 Lucky Pokémon via ruilen"]},
+    {level:80,total:203353000,step:16000000,dust:0,tasks:["Verdien 50 platina medailles","Win 80 gevechten in de GO Battle League","Maak 999 Excellent Throws","Win 80 raids"]}
+  ];
+  const fmt=n=>new Intl.NumberFormat("nl-NL").format(n);
+  let selected=71;
+  let progress={};try{progress=JSON.parse(localStorage.getItem("zgo-level-progress")||"{}")}catch(e){}
+  const buttons=document.getElementById("levelButtons"),card=document.getElementById("card"),search=document.getElementById("search");
+  function drawButtons(filter=""){
+    const q=filter.toLowerCase().trim();
+    buttons.innerHTML=levels.filter(l=>!q||("level "+l.level+" "+l.tasks.join(" ")).toLowerCase().includes(q)).map(l=>`<button data-level="${l.level}" class="${l.level===selected?"active":""}"><small>LEVEL</small>${l.level}</button>`).join("");
+    buttons.querySelectorAll("button").forEach(b=>b.onclick=()=>{selected=+b.dataset.level;drawButtons(search.value);drawCard()});
+  }
+  function drawCard(){
+    const l=levels.find(x=>x.level===selected),has=l.tasks.length;
+    card.innerHTML=`<div class="cardHead"><div class="badge"><small>LEVEL</small><strong>${l.level}</strong></div><div class="intro"><label>DOEL: LEVEL ${l.level}</label><h3>${has?"Voltooi alle "+l.tasks.length+" opdrachten":"Je hebt level 70 bereikt"}</h3><p>${has?"Je hebt zowel "+fmt(l.step)+" extra XP als alle onderstaande opdrachten nodig.":l.note}</p></div><div class="xp"><small>EXTRA XP NODIG</small><strong>${fmt(l.step)}</strong><span>Totaal: ${fmt(l.total)} XP</span></div></div>${has?`<div class="tasks">${l.tasks.map((t,i)=>{const k=l.level+"-"+i,d=!!progress[k];return `<button class="task ${d?"done":""}" data-key="${k}"><span class="check">${d?"✓":""}</span><span><small>OPDRACHT ${i+1}</small><b>${t}</b></span></button>`}).join("")}</div>`:""}<div class="dust"><span class="dustIcon">✦</span><div><b>Stardust voor dit level</b><p>${l.dust?fmt(l.dust)+" verdienen via een opdracht":"Geen Stardust-opdracht en je hoeft niets te betalen"}</p></div><strong>${fmt(l.dust)}</strong></div>`;
+    card.querySelectorAll(".task").forEach(t=>t.onclick=()=>{progress[t.dataset.key]=!progress[t.dataset.key];localStorage.setItem("zgo-level-progress",JSON.stringify(progress));drawCard()});
+  }
+  search.oninput=()=>drawButtons(search.value);drawButtons();drawCard();
+  </script>
+</body>
+</html>
