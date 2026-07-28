@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Bekijk alle Pokémon GO-vormen naast hun shiny-versie. Zoek op naam of Pokédexnummer.">
+  <title>ZamexCards Pokémon GO Vormen & Shiny Pokédex</title>
+  <style>
+    :root{--green:#31b64b;--green-dark:#168536;--blue:#1475c9;--navy:#103a5c;--ink:#153047;--muted:#668094;--line:#dce8ef;--bg:#f4f9fc;--card:#fff;--shiny:#fff8dc}
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(145deg,#f3fbf5 0%,#eef7fd 55%,#fff 100%);color:var(--ink);font-family:Inter,Arial,sans-serif}
+    button,input{font:inherit}
+    .hero{position:relative;overflow:hidden;padding:46px 20px 70px;background:linear-gradient(120deg,#0d8c45,#087dbd);color:#fff}
+    .hero:after{content:"";position:absolute;width:320px;height:320px;right:-100px;top:-150px;border:45px solid rgba(255,255,255,.1);border-radius:50%}
+    .wrap{width:min(1180px,calc(100% - 28px));margin:auto}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.2px}
+    .ball{width:39px;height:39px;border:4px solid #fff;border-radius:50%;position:relative;background:linear-gradient(#30b752 0 44%,#fff 44% 56%,#1884c8 56%)}
+    .ball:after{content:"";position:absolute;width:9px;height:9px;border:3px solid #fff;background:#1784c7;border-radius:50%;left:8px;top:8px}
+    h1{font-size:clamp(30px,5vw,54px);line-height:1.05;max-width:780px;margin:28px 0 12px}
+    .intro{max-width:700px;margin:0;color:#eaf8ff;font-size:18px;line-height:1.6}
+    .searchbox{position:relative;z-index:2;margin:-34px auto 30px;background:#fff;border-radius:18px;padding:15px;box-shadow:0 16px 40px rgba(20,60,90,.18);display:flex;gap:10px}
+    .searchbox input{min-width:0;flex:1;border:2px solid var(--line);border-radius:12px;padding:14px 16px;outline:none;color:var(--ink)}
+    .searchbox input:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(20,117,201,.1)}
+    .searchbox button,.load{border:0;border-radius:12px;padding:0 24px;color:#fff;font-weight:800;background:linear-gradient(120deg,var(--green),var(--blue));cursor:pointer;box-shadow:0 6px 14px rgba(20,117,201,.2)}
+    .searchbox button:hover,.load:hover{filter:brightness(1.06);transform:translateY(-1px)}
+    .status{min-height:24px;margin:0 0 20px;color:var(--muted);font-weight:700}
+    .included{display:flex;flex-wrap:wrap;gap:8px;margin:-5px 0 28px}
+    .included button{padding:8px 12px;border:1px solid var(--line);background:#fff;border-radius:999px;color:var(--navy);font-size:12px;font-weight:800;cursor:pointer}
+    .included button:hover{border-color:var(--blue);color:var(--blue)}
+    .included button.active{border-color:transparent;background:linear-gradient(120deg,var(--green),var(--blue));color:#fff;box-shadow:0 5px 12px rgba(20,117,201,.2)}
+    .dex-section{margin:0 0 38px;scroll-margin-top:18px}
+    .dex-head{display:flex;align-items:end;justify-content:space-between;gap:15px;border-bottom:2px solid var(--line);padding-bottom:12px;margin-bottom:18px}
+    .dex-title{margin:0;font-size:clamp(25px,4vw,36px);color:var(--navy)}
+    .dex-number{color:var(--blue);font-weight:900;letter-spacing:1px}
+    .count{color:var(--muted);font-size:14px;font-weight:700}
+    .forms{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
+    .form-card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 8px 24px rgba(16,58,92,.08);overflow:hidden}
+    .form-name{margin:0;padding:15px 17px;border-bottom:1px solid var(--line);font-size:17px}
+    .pair{display:grid;grid-template-columns:1fr 1fr}
+    .variant{position:relative;text-align:center;padding:13px 8px 16px;min-width:0}
+    .variant+ .variant{border-left:1px solid var(--line);background:linear-gradient(145deg,var(--shiny),#fff)}
+    .variant img{display:block;width:100%;height:150px;object-fit:contain;margin:auto;filter:drop-shadow(0 8px 8px rgba(16,58,92,.14))}
+    .badge{display:inline-flex;align-items:center;gap:5px;border-radius:20px;background:#e8f6ee;color:var(--green-dark);padding:5px 9px;font-size:12px;font-weight:900}
+    .badge.shiny{background:#fff0ad;color:#8a6700}
+    .empty{padding:45px 20px;text-align:center;background:#fff;border:1px dashed #b9cbd6;border-radius:18px;color:var(--muted)}
+    .actions{text-align:center;padding:4px 0 60px}
+    .load{min-height:52px;padding:0 30px}
+    .load[hidden]{display:none}
+    .spinner{display:inline-block;width:17px;height:17px;border:3px solid #cde0ec;border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;vertical-align:-3px;margin-right:7px}
+    footer{text-align:center;color:var(--muted);padding:24px;font-size:13px;border-top:1px solid var(--line);background:#fff}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @media(max-width:610px){.hero{padding-top:30px}.searchbox{flex-direction:column}.searchbox button{min-height:49px}.forms{grid-template-columns:1fr}.variant img{height:130px}.dex-head{align-items:start;flex-direction:column;gap:5px}}
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <div class="brand"><span class="ball" aria-hidden="true"></span>ZamexCards.nl</div>
+      <h1>Pokémon GO Vormen & Shiny Pokédex</h1>
+      <p class="intro">Bekijk iedere Pokémon GO-versie naast de shiny-versie. Zoek op naam of Pokédexnummer.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <form class="searchbox" id="searchForm">
+      <label for="search" hidden>Pokémon zoeken</label>
+      <input id="search" list="pokemonNames" inputmode="search" autocomplete="off" placeholder="Zoek op naam of nummer, bijvoorbeeld Pikachu of 025">
+      <datalist id="pokemonNames"></datalist>
+      <button type="submit">Zoeken</button>
+    </form>
+    <p class="status" id="status"><span class="spinner"></span>Pokémon GO-gegevens laden…</p>
+    <div class="included" id="formFilters" aria-label="Filter op Pokémon GO-vorm">
+      <button type="button" class="active" data-filter="all">Alle vormen</button>
+      <button type="button" data-filter="normal">Normaal</button><button type="button" data-filter="shiny">Shiny</button>
+      <button type="button" data-filter="costume">Eventkostuums, hoeden & kleding</button>
+      <button type="button" data-filter="alola">Alolan</button><button type="button" data-filter="galar">Galarian</button>
+      <button type="button" data-filter="hisui">Hisuian</button><button type="button" data-filter="paldea">Paldean</button>
+      <button type="button" data-filter="mega">Mega</button><button type="button" data-filter="primal">Primal</button>
+      <button type="button" data-filter="gigantamax">Gigantamax</button>
+      <button type="button" data-filter="gender">Geslachtsvarianten</button><button type="button" data-filter="other">Overige vormen</button>
+    </div>
+    <div id="results" aria-live="polite"></div>
+    <div class="actions"><button class="load" id="loadMore" type="button" hidden>Laad meer Pokémon</button></div>
+  </main>
+
+  <footer>Pokémon-afbeeldingen en namen behoren toe aan hun respectieve rechthebbenden. Dit is een onofficieel fanoverzicht.</footer>
+
+  <script>
+    (() => {
+      "use strict";
+      const API = "https://pokemon-go-api.github.io/pokemon-go-api/api/pokedex.json";
+      const BATCH = 20;
+      const $ = id => document.getElementById(id);
+      const results = $("results"), status = $("status"), loadMore = $("loadMore");
+      let groups = new Map(), orderedDex = [], activeDex = [], shown = 0, searching = false, activeFilter = "all", fallbackMode = false;
+
+      const fallback = [{
+        dexNr:1,id:"BULBASAUR",formId:"BULBASAUR",names:{English:"Bulbasaur"},
+        assets:{
+          image:"https://raw.githubusercontent.com/pokemon-go-api/assets/main/Pokemon/pm1.icon.png",
+          shinyImage:"https://raw.githubusercontent.com/pokemon-go-api/assets/main/Pokemon/pm1.s.icon.png"
+        },assetForms:[]
+      }];
+
+      const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+      const title = value => String(value || "Normale vorm").replace(/^POKEMON_?/i,"").replace(/_NOEVOLVE$/i,"").replace(/_/g," ").toLowerCase().replace(/\b\w/g,c=>c.toUpperCase());
+      const number = nr => String(nr).padStart(3,"0");
+
+      function formLabel(p, form) {
+        if (form.displayName) return form.displayName;
+        if (form.costume) return "Eventkostuum · " + title(form.costume);
+        if (form.form && form.form !== p.id && form.form !== p.formId) {
+          const f=title(form.form)
+            .replace(/^Alola$/,"Alolan vorm").replace(/^Galarian$/,"Galarian vorm")
+            .replace(/^Hisuian$/,"Hisuian vorm").replace(/^Paldea$/,"Paldean vorm")
+            .replace(/^Mega X$/,"Mega-evolutie X").replace(/^Mega Y$/,"Mega-evolutie Y")
+            .replace(/^Mega$/,"Mega-evolutie").replace(/^Primal$/,"Primal Reversion")
+            .replace(/^Gigantamax$/,"Gigantamax-vorm");
+          return form.isFemale ? `${f} · vrouwelijk` : f;
+        }
+        if (form.isFemale) return "Vrouwelijke vorm";
+        if (p.formId && p.formId !== p.id) return title(p.formId);
+        return "Normale vorm";
+      }
+
+      function allForms(p) {
+        const regional=Object.values(p.regionForms || {}).map(r=>({
+          image:r.assets?.image,shinyImage:r.assets?.shinyImage,form:r.formId,
+          displayName:r.names?.English || title(r.formId)
+        }));
+        const mega=Object.values(p.megaEvolutions || {}).map(m=>({
+          image:m.assets?.image,shinyImage:m.assets?.shinyImage,form:m.id,
+          displayName:m.names?.English || title(m.id)
+        }));
+        const raw = [
+          {image:p.assets?.image,shinyImage:p.assets?.shinyImage,form:p.formId},
+          ...(p.assetForms || []),...regional,...mega
+        ];
+        const seen = new Set();
+        return raw.filter(f => {
+          if (!f.image && !f.shinyImage) return false;
+          const key = `${f.image}|${f.shinyImage}`;
+          if (seen.has(key)) return false;
+          seen.add(key); return true;
+        }).map(f => ({...f,label:formLabel(p,f),baseId:p.id,baseForm:p.formId}));
+      }
+
+      function matchesFilter(f, filter) {
+        if (filter==="all") return true;
+        if (filter==="shiny") return Boolean(f.shinyImage);
+        if (filter==="costume") return Boolean(f.costume);
+        const code=String(f.form || "").toUpperCase();
+        if (filter==="alola") return code.includes("ALOLA");
+        if (filter==="galar") return code.includes("GALAR");
+        if (filter==="hisui") return code.includes("HISUI");
+        if (filter==="paldea") return code.includes("PALDEA");
+        if (filter==="mega") return code.includes("MEGA");
+        if (filter==="primal") return code.includes("PRIMAL");
+        if (filter==="gigantamax") return code.includes("GIGANTAMAX");
+        if (filter==="gender") return Boolean(f.isFemale) || /(^|_)(MALE|FEMALE)($|_)/.test(code);
+        const isBase=!f.costume && !f.isFemale && (!code || code===f.baseId || code===f.baseForm);
+        if (filter==="normal") return isBase;
+        if (filter==="other") return !isBase && !f.costume && !["ALOLA","GALAR","HISUI","PALDEA","MEGA","PRIMAL","GIGANTAMAX"].some(x=>code.includes(x)) && !/(^|_)(MALE|FEMALE)($|_)/.test(code);
+        return true;
+      }
+
+      function uniqueForms(dex, filter=activeFilter) {
+        const forms=(groups.get(dex)||[]).flatMap(p=>allForms(p)).filter(f=>matchesFilter(f,filter));
+        return [...new Map(forms.map(f=>[`${f.image}|${f.shinyImage}`,f])).values()];
+      }
+
+      function card(form, name) {
+        const missing = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160"><rect width="200" height="160" fill="#f1f6f9"/><text x="100" y="82" text-anchor="middle" fill="#668094" font-family="Arial" font-size="14">Afbeelding niet beschikbaar</text></svg>');
+        return `<article class="form-card">
+          <h3 class="form-name">${esc(form.label)}</h3>
+          <div class="pair">
+            <div class="variant"><img loading="lazy" src="${esc(form.image || missing)}" onerror="this.onerror=null;this.src='${missing}'" alt="${esc(name)} – ${esc(form.label)}"><span class="badge">Normaal</span></div>
+            <div class="variant"><img loading="lazy" src="${esc(form.shinyImage || missing)}" onerror="this.onerror=null;this.src='${missing}'" alt="Shiny ${esc(name)} – ${esc(form.label)}"><span class="badge shiny">★ Shiny</span></div>
+          </div>
+        </article>`;
+      }
+
+      function section(dex, filter=activeFilter) {
+        const entries = groups.get(dex) || [];
+        const name = entries[0]?.names?.English || title(entries[0]?.id);
+        const unique = uniqueForms(dex,filter);
+        return `<section class="dex-section" data-dex="${dex}">
+          <div class="dex-head"><h2 class="dex-title"><span class="dex-number">#${number(dex)}</span> ${esc(name)}</h2><span class="count">${unique.length} ${unique.length===1?"versie":"versies"}</span></div>
+          <div class="forms">${unique.map(f=>card(f,name)).join("")}</div>
+        </section>`;
+      }
+
+      function showInitial() {
+        searching = false; activeFilter="all"; activeDex=orderedDex;
+        const first=orderedDex.slice(0,BATCH); shown=first.length;
+        updateFilterButtons();
+        results.innerHTML = first.map(dex=>section(dex,"all")).join("");
+        const checked=new Intl.DateTimeFormat("nl-NL",{dateStyle:"short",timeStyle:"short"}).format(new Date());
+        status.textContent = `De eerste ${shown} Pokémon worden getoond. Actuele database gecontroleerd: ${checked}.`;
+        loadMore.hidden = orderedDex.length <= shown;
+        loadMore.textContent = "Laad meer Pokémon";
+      }
+
+      function addMore() {
+        searching = false;
+        const next = activeDex.slice(shown,shown+BATCH);
+        results.insertAdjacentHTML("beforeend",next.map(section).join(""));
+        shown += next.length;
+        status.textContent = `${shown} Pokémon met passende vormen geladen.`;
+        loadMore.hidden = shown >= activeDex.length;
+      }
+
+      function updateFilterButtons() {
+        document.querySelectorAll("#formFilters button").forEach(btn=>{
+          const active=btn.dataset.filter===activeFilter;
+          btn.classList.toggle("active",active);
+          btn.setAttribute("aria-pressed",String(active));
+        });
+      }
+
+      function applyFormFilter(filter) {
+        activeFilter=filter; searching=false; shown=0;
+        activeDex=orderedDex.filter(dex=>uniqueForms(dex,filter).length);
+        updateFilterButtons();
+        if (!activeDex.length) {
+          results.innerHTML='<div class="empty"><strong>Geen vormen gevonden.</strong></div>';
+          status.textContent="Voor deze vorm zijn geen resultaten beschikbaar.";
+          loadMore.hidden=true; return;
+        }
+        const next=activeDex.slice(0,BATCH); shown=next.length;
+        results.innerHTML=next.map(dex=>section(dex,filter)).join("");
+        const label=document.querySelector(`#formFilters button[data-filter="${filter}"]`)?.textContent || "vorm";
+        status.textContent=`${activeDex.length} Pokémon gevonden voor “${label}”.`;
+        loadMore.hidden=shown>=activeDex.length;
+        loadMore.textContent="Laad meer resultaten";
+      }
+
+      function searchTerms(p) {
+        return [
+          p?.names?.English,p?.id,p?.formId,
+          ...Object.values(p?.regionForms || {}).flatMap(r=>[r.names?.English,r.formId]),
+          ...Object.values(p?.megaEvolutions || {}).flatMap(m=>[m.names?.English,m.id]),
+          ...(p?.assetForms || []).flatMap(f=>[f.form,f.costume])
+        ].filter(Boolean).map(v=>String(v).toLowerCase());
+      }
+
+      function findPokemon(query) {
+        const q = query.trim().toLowerCase().replace(/^#/,"");
+        if (!q) { showInitial(); return; }
+        let dex = /^\d+$/.test(q) ? Number(q) : orderedDex.find(n => {
+          return (groups.get(n)||[]).some(p=>searchTerms(p).some(v=>v===q));
+        });
+        if (!dex) dex = orderedDex.find(n => {
+          return (groups.get(n)||[]).some(p=>searchTerms(p).some(v=>v.includes(q)));
+        });
+        if (!dex || !groups.has(dex)) {
+          results.innerHTML = `<div class="empty"><strong>Geen Pokémon gevonden.</strong><br>Controleer de naam of het Pokédexnummer.</div>`;
+          status.textContent = `Geen resultaat voor “${query.trim()}”.`; loadMore.hidden = true; return;
+        }
+        searching = true; activeFilter="all"; updateFilterButtons(); results.innerHTML = section(dex,"all");
+        const name = groups.get(dex)[0]?.names?.English || "";
+        status.textContent = `Resultaat: #${number(dex)} ${name}`;
+        loadMore.hidden = false; loadMore.textContent = "Terug naar overzicht";
+      }
+
+      async function init() {
+        let data;
+        try {
+          const response = await fetch(`${API}?update=${Date.now()}`,{cache:"no-store"});
+          if (!response.ok) throw new Error("Databron niet bereikbaar");
+          data = await response.json();
+        } catch (error) {
+          data = fallback;
+          fallbackMode = true;
+        }
+        data.filter(p=>Number.isFinite(Number(p.dexNr))).forEach(p => {
+          const dex=Number(p.dexNr); if(!groups.has(dex)) groups.set(dex,[]); groups.get(dex).push(p);
+        });
+        orderedDex=[...groups.keys()].sort((a,b)=>a-b);
+        $("pokemonNames").innerHTML=orderedDex.map(d=>{
+          const p=groups.get(d)[0], name=p?.names?.English||title(p?.id);
+          return `<option value="${esc(name)}">#${number(d)}</option>`;
+        }).join("");
+        showInitial();
+        if (fallbackMode) status.textContent = "De volledige Pokémon-database kon niet worden geladen. Controleer de internetverbinding en vernieuw de pagina.";
+      }
+
+      $("searchForm").addEventListener("submit",e=>{e.preventDefault();findPokemon($("search").value)});
+      $("formFilters").addEventListener("click",e=>{
+        const btn=e.target.closest("button[data-filter]"); if(!btn)return;
+        $("search").value=""; applyFormFilter(btn.dataset.filter);
+      });
+      loadMore.addEventListener("click",()=>{if(searching){$("search").value="";showInitial();window.scrollTo({top:document.querySelector(".searchbox").offsetTop-20,behavior:"smooth"})}else addMore()});
+      init();
+    })();
+  </script>
+</body>
+</html>
