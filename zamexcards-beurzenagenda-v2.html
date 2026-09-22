@@ -109,7 +109,7 @@
       if(!IS_EMBEDDED)return;
       cancelAnimationFrame(heightFrame);
       heightFrame=requestAnimationFrame(()=>{
-        const height=Math.max(document.documentElement.scrollHeight,document.documentElement.offsetHeight,document.body.scrollHeight,document.body.offsetHeight);
+        const height=Math.ceil(document.body.getBoundingClientRect().height);
         if(Math.abs(height-lastSentHeight)<2)return;
         lastSentHeight=height;
         window.parent.postMessage({type:"zamexcards-agenda-height",height},"*");
