@@ -17,7 +17,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <style>
     :root{--navy:#031a35;--navy2:#062447;--panel:#071f3f;--panel2:#0a294e;--line:#1b4f76;--green:#44d35b;--green2:#55d764;--teal:#14b99b;--blue:#2d8cff;--blue2:#55a9ff;--text:#f7fbff;--muted:#a9bfd2;--danger:#ff4757;--shadow:0 18px 44px rgba(0,0,0,.25)}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}html.is-embedded,html.is-embedded body{overflow:hidden}body{margin:0;min-height:100vh;color:var(--text);font:600 16px/1.55 Inter,Arial,Helvetica,sans-serif;background:radial-gradient(circle at 12% 0,#0a3157 0,#041d39 32%,#02152d 100%)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}html.is-embedded{overflow:hidden}html.is-embedded body{min-height:0;overflow:hidden}body{margin:0;min-height:100vh;color:var(--text);font:600 16px/1.55 Inter,Arial,Helvetica,sans-serif;background:radial-gradient(circle at 12% 0,#0a3157 0,#041d39 32%,#02152d 100%)}
     button,input,select,textarea{font:inherit}.wrap{max-width:1280px;margin:auto}.hero{padding:28px 18px 50px;border-bottom:1px solid rgba(85,169,255,.22)}.hero-row{display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:16px;min-width:0}.logo-slot{width:82px;height:82px;flex:0 0 82px;display:grid;place-items:center}.logo-slot img{display:block;max-width:100%;max-height:100%;object-fit:contain}.brand-copy{min-width:0}.brand-name{font-size:clamp(28px,4vw,38px);font-weight:900;letter-spacing:-.8px;line-height:1}.brand-name .zamex{color:var(--green)}.brand-name .cards{color:var(--blue2)}.hero h1{margin:8px 0 3px;font-size:clamp(22px,3vw,30px);line-height:1.15;font-weight:900}.hero p{margin:0;color:var(--muted)}
     .hero-cta,.submit-banner a,.submit{min-height:44px;display:inline-flex;align-items:center;justify-content:center;border:0;color:#fff;text-decoration:none;padding:11px 18px;border-radius:10px;font-weight:900;white-space:nowrap;background:linear-gradient(135deg,#58cf62,#37ad50);box-shadow:0 10px 24px rgba(33,168,91,.2);cursor:pointer}.hero-cta:hover,.submit-banner a:hover,.submit:hover,.btn:hover,.load-more:hover{filter:brightness(1.1)}
     .toolbar,.event,.seo-info,.signup{background:linear-gradient(180deg,rgba(7,31,63,.97),rgba(5,25,52,.97));border:1px solid #2c8c47;border-radius:16px;box-shadow:var(--shadow)}.toolbar{display:grid;grid-template-columns:2fr repeat(5,minmax(125px,1fr));gap:12px;margin:-24px auto 26px;padding:18px}.field label,.signup-form label{display:block;margin:0 0 6px;font-weight:800;font-size:13px}.field input,.field select,.signup-form input,.signup-form select,.signup-form textarea{width:100%;min-height:44px;border:1px solid #345875;border-radius:9px;padding:10px 12px;background:#0b294c;color:var(--text);outline:none}.field input::placeholder,.signup-form input::placeholder,.signup-form textarea::placeholder{color:#8fa9bd}.field input:focus,.field select:focus,.signup-form input:focus,.signup-form select:focus,.signup-form textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(68,211,91,.16)}select option{background:#0b294c;color:var(--text)}
@@ -109,7 +109,7 @@
       if(!IS_EMBEDDED)return;
       cancelAnimationFrame(heightFrame);
       heightFrame=requestAnimationFrame(()=>{
-        const height=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);
+        const height=Math.max(document.documentElement.scrollHeight,document.documentElement.offsetHeight,document.body.scrollHeight,document.body.offsetHeight);
         if(Math.abs(height-lastSentHeight)<2)return;
         lastSentHeight=height;
         window.parent.postMessage({type:"zamexcards-agenda-height",height},"*");
@@ -119,7 +119,10 @@
       new ResizeObserver(reportHeight).observe(document.body);
       window.addEventListener("load",reportHeight);
       window.addEventListener("resize",reportHeight);
+      window.addEventListener("message",event=>{if(event.data?.type==="zamexcards-request-height")reportHeight()});
+      document.addEventListener("load",reportHeight,true);
       document.fonts?.ready.then(reportHeight);
+      [100,500,1500,3000,6000].forEach(delay=>setTimeout(reportHeight,delay));
     }
 
     const demoEvents = [
