@@ -129,6 +129,19 @@
       [100,500,1500,3000,6000].forEach(delay=>setTimeout(reportHeight,delay));
     }
 
+    function goToSignup(event){
+      event?.preventDefault();
+      const target=document.getElementById("beurs-aanmelden");
+      if(!target)return;
+      const top=Math.max(0,Math.round(target.getBoundingClientRect().top+window.scrollY-18));
+      if(IS_EMBEDDED){
+        window.parent.postMessage({type:"zamexcards-agenda-scroll",top},"*");
+      }else{
+        target.scrollIntoView({behavior:"smooth",block:"start"});
+      }
+    }
+    document.querySelectorAll('a[href="#beurs-aanmelden"]').forEach(link=>link.addEventListener("click",goToSignup));
+
     const demoEvents = [
       {Datum:"2026-09-19",Einddatum:"2026-09-20",Weeknummer:"",Beursnaam:"TCG Beurs Utrecht",Type:"Beurs",Plaats:"Utrecht",Provincie:"Utrecht",Land:"Nederland",Locatie:"Voorbeeldlocatie",Adres:"Jaarbeursplein, Utrecht",Begintijd:"10:00",Eindtijd:"17:00",Entreeprijs:"€ 5,00",VIPBegintijd:"09:00",VIPEindtijd:"17:00",VIPPrijs:"€ 15,00",Ticketlink:"https://example.com/tickets",Website:"https://example.com",Flyer:"https://images.unsplash.com/photo-1609372332255-611485350f25?auto=format&fit=crop&w=700&q=80",Parkeren:"Betaald",Horeca:"Ja",Omschrijving:"Voorbeeldbeurs met handelaren, ruiltafels en verschillende TCG-producten.",Status:"Goedgekeurd"},
       {Datum:"2026-09-27",Einddatum:"",Weeknummer:"",Beursnaam:"Verzamelbeurs Antwerpen",Type:"Markt",Plaats:"Antwerpen",Provincie:"Antwerpen",Land:"België",Locatie:"Voorbeeldhal",Adres:"Antwerpen, België",Begintijd:"10:30",Eindtijd:"16:30",Entreeprijs:"Gratis",VIPBegintijd:"",VIPEindtijd:"",VIPPrijs:"",Ticketlink:"",Website:"https://example.com",Flyer:"",Parkeren:"Gratis",Horeca:"Nee",Omschrijving:"Dit is een voorbeeld. Vervang de voorbeeldgegevens door jullie spreadsheet.",Status:"Goedgekeurd"}
