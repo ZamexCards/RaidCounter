@@ -133,9 +133,10 @@
       event?.preventDefault();
       const target=document.getElementById("beurs-aanmelden");
       if(!target)return;
-      const top=Math.max(0,Math.round(target.getBoundingClientRect().top+window.scrollY-18));
       if(IS_EMBEDDED){
-        window.parent.postMessage({type:"zamexcards-agenda-scroll",top},"*");
+        const signupUrl=window.location.origin+window.location.pathname+"#beurs-aanmelden";
+        const signupWindow=window.open(signupUrl,"_blank","noopener");
+        if(!signupWindow)window.location.href=signupUrl;
       }else{
         target.scrollIntoView({behavior:"smooth",block:"start"});
       }
