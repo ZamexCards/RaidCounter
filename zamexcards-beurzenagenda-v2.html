@@ -134,9 +134,19 @@
       const target=document.getElementById("beurs-aanmelden");
       if(!target)return;
       if(IS_EMBEDDED){
-        const signupUrl=window.location.origin+window.location.pathname+"#beurs-aanmelden";
-        const signupWindow=window.open(signupUrl,"_blank","noopener");
-        if(!signupWindow)window.location.href=signupUrl;
+        const clickedButton=event?.currentTarget;
+        const banner=clickedButton?.closest(".submit-banner");
+        if(banner){
+          banner.insertAdjacentElement("afterend",target);
+        }else{
+          document.querySelector("main")?.insertAdjacentElement("afterbegin",target);
+        }
+        reportHeight();
+        requestAnimationFrame(()=>{
+          const top=Math.max(0,Math.round(target.getBoundingClientRect().top+window.scrollY-18));
+          window.parent.postMessage({type:"zamexcards-agenda-scroll",top},"*");
+          target.querySelector("input,select,textarea,button")?.focus({preventScroll:true});
+        });
       }else{
         target.scrollIntoView({behavior:"smooth",block:"start"});
       }
